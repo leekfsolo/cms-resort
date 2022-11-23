@@ -1,10 +1,10 @@
 export interface IFormLogin {
-  account: string;
+  username: string;
   password: string;
 }
 
 export interface IFormSignup {
-  account: string;
+  username: string;
   password: string;
   confirmPassword: string;
 }

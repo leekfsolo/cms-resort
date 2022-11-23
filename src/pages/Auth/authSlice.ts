@@ -8,7 +8,7 @@ const initialAuth = () => {
   if (auth) {
     return { ...JSON.parse(auth) };
   }
-  return { id: "", name: "", status: false };
+  return { id: "", name: "" };
 };
 
 export const login = createAsyncThunk(
