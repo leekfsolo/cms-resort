@@ -20,7 +20,7 @@ const SignupForm = () => {
     >
       <FormControl variant="standard" className="w-100 d-flex flex-column">
         <Controller
-          name="account"
+          name="username"
           control={control}
           render={({ field }) => (
             <CInput

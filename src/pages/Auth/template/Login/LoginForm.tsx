@@ -20,7 +20,7 @@ const LoginForm = () => {
   const submitFormHandler: SubmitHandler<IFormLogin> = async (data) => {
     dispatch(handleLoading(true));
     try {
-      if (data.account && data.password) {
+      if (data.username && data.password) {
         const dataResponse: any = await dispatch(login(data)).unwrap();
 
         if (dataResponse.status) {
@@ -45,7 +45,7 @@ const LoginForm = () => {
     >
       <FormControl variant="standard" className="w-100 d-flex flex-column">
         <Controller
-          name={"account"}
+          name={"username"}
           control={control}
           render={({ field }) => (
             <CInput
