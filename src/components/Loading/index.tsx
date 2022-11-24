@@ -1,13 +1,13 @@
 import { CircularProgress } from "@mui/material";
+import { useAppSelector } from "app/hooks";
+import { globalSelector } from "app/selectors";
 import React from "react";
 
-type Props = {
-  isOpen: boolean;
-};
+const Loading = () => {
+  const { isLoading } = useAppSelector(globalSelector);
 
-const Loading = ({ isOpen }: Props) => {
   return (
-    <div className={`loading${isOpen ? " loading-open" : ""}`}>
+    <div className={`loading ${isLoading ? " loading-open" : ""}`}>
       <CircularProgress />
     </div>
   );

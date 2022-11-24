@@ -1,4 +1,4 @@
-import Logo from "./images/Logo.png";
+import Logo from "./images/HCMUT_Logo.png";
 import DefaultUser from "./images/defaultUser.png";
 
 import { ReactComponent as FacebookSVG } from "./svg/facebook.svg";

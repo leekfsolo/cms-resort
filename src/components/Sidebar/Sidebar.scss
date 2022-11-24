@@ -1,7 +1,7 @@
-@use 'styles/index' as *;
+@use "styles/index" as *;
 
 .sidebar {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   height: 100%;
   padding: 16px;
 
@@ -39,57 +39,48 @@
   }
 
   &-list {
-    &__section {
-      .sidebar-item {
-        height: 44px;
-        padding: 0 16px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        border-radius: $radius-m;
-        transition: background-color 0.1s linear;
-        cursor: pointer;
-        overflow: hidden;
+    &__item {
+      height: 44px;
+      padding: 0 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: $radius-m;
+      transition: background-color 0.1s linear;
+      cursor: pointer;
+      overflow: hidden;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        fill: $neutral-600;
+      }
+
+      span {
+        font-size: 14px;
+        color: $neutral-600;
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background-color: $primary-150;
+      }
+
+      &.active {
+        background-color: $primary-500;
 
         svg {
-          width: 24px;
-          height: 24px;
-          fill: $neutral-600;
+          fill: $white;
         }
 
         span {
-          font-size: 14px;
-          color: $neutral-600;
-          white-space: nowrap;
-        }
-
-        &:hover {
-          background-color: $primary-150;
-        }
-
-        &.active {
-          background-color: $primary-500;
-
-          svg {
-            fill: $white;
-          }
-
-          span {
-            color: $white;
-          }
-        }
-
-        &:last-child {
-          margin-bottom: 0;
+          color: $white;
         }
       }
 
-      .section-divider {
-        width: 100%;
-        height: 1px;
-        background-color: $neutral-300;
-        margin: 25px 0;
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

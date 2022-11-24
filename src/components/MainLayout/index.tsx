@@ -13,35 +13,32 @@ import { useSelector } from "react-redux";
 import { globalSelector } from "app/selectors";
 
 const MainLayout = () => {
-  const sidebarItems: Array<ISidebarItem[]> = useMemo(
+  const sidebarItems: ISidebarItem[] = useMemo(
     () => [
-      [
-        {
-          label: "Home",
-          src: PageUrl.HOME,
-          icon: <CottageOutlinedIcon />,
-        },
-        {
-          label: "Customer",
-          src: PageUrl.CUSTOMER,
-          icon: <GroupOutlinedIcon />,
-        },
-        {
-          label: "Room",
-          src: PageUrl.ROOM,
-          icon: <KingBedOutlinedIcon />,
-        },
-        {
-          label: "Log out",
-          src: `/${PageUrl.LOGIN}`,
-          icon: <LogoutOutlinedIcon />,
-        },
-      ],
+      {
+        label: "Home",
+        src: PageUrl.HOME,
+        icon: <CottageOutlinedIcon />,
+      },
+      {
+        label: "Customer",
+        src: PageUrl.CUSTOMER,
+        icon: <GroupOutlinedIcon />,
+      },
+      {
+        label: "Room",
+        src: PageUrl.ROOM,
+        icon: <KingBedOutlinedIcon />,
+      },
+      {
+        label: "Log out",
+        src: `/${PageUrl.LOGIN}`,
+        icon: <LogoutOutlinedIcon />,
+      },
     ],
     []
   );
-  const [activeSidebarTitle, setActiveSidebarTitle] =
-    useState<string>("Dashboard");
+  const [activeSidebarTitle, setActiveSidebarTitle] = useState<string>("Home");
   const { isShowSidebar } = useSelector(globalSelector);
   const navigate = useNavigate();
 

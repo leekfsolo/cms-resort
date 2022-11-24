@@ -8,22 +8,27 @@ import PrivateRoute from "./PrivateRoute";
 import Signup from "pages/Auth/template/Signup";
 import Login from "../pages/Auth/template/Login";
 import Loading from "components/Loading";
-import { useSelector } from "react-redux";
-import { globalSelector } from "app/selectors";
+import MainLayout from "components/MainLayout";
+import Customer from "pages/Customer";
+import Room from "pages/Room";
+import ModalBackdrop from "components/ModalBackdrop";
 
 const Routers = () => {
-  const { isLoading } = useSelector(globalSelector);
-
   return (
     <Router>
-      <Loading isOpen={isLoading} />
+      <Loading />
+      <ModalBackdrop />
       <Routes>
         <Route element={<Auth />}>
           <Route index path={PageUrl.LOGIN} element={<Login />} />
           <Route path={PageUrl.SIGNUP} element={<Signup />} />
         </Route>
         <Route element={<PrivateRoute />}>
-          <Route path={PageUrl.HOME} element={<Home />} />
+          <Route path={PageUrl.ROOT} element={<MainLayout />}>
+            <Route index path={PageUrl.HOME} element={<Home />} />
+            <Route path={PageUrl.CUSTOMER} element={<Customer />} />
+            <Route path={PageUrl.ROOM} element={<Room />} />
+          </Route>
         </Route>
         <Route path={PageUrl.ALL} element={<Auth />} />
       </Routes>

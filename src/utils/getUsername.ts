@@ -5,7 +5,7 @@ export const getUsername = () => {
   const auth = sessionStorage.getItem(Config.storageKey.auth);
 
   if (auth) {
-    username = JSON.parse(auth).username;
+    username = JSON.parse(auth).auth.username;
   }
 
   return username;

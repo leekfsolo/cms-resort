@@ -14,7 +14,7 @@ const SidebarItem = ({
   item,
   activeSidebarTitle,
 }: Props) => {
-  const { label, src, icon = null, subItems = [] } = item;
+  const { label, src, icon = null } = item;
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -22,7 +22,7 @@ const SidebarItem = ({
     navigate(src);
   };
 
-  const classnames = classNames("sidebar-item", {
+  const classnames = classNames("sidebar-list__item", {
     active: activeSidebarTitle === label,
   });
 
