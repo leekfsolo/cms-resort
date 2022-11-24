@@ -1,0 +1,18 @@
+@use "styles/index" as *;
+
+.customer {
+  &-header {
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: $neutral-900;
+    }
+  }
+
+  &-search {
+    p {
+      font-weight: 700;
+      color: $neutral-800;
+    }
+  }
+}

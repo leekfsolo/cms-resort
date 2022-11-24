@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Paper,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
+import { Box, Paper, Divider, Typography } from "@mui/material";
 
-import CTableHead from "components/CTableHead";
 import CPagination from "components/CPagination";
-import SearchIcon from "@mui/icons-material/Search";
 import { useAppDispatch, useAppSelector } from "app/hooks";
 import { customerSelector } from "app/selectors";
 import { getCustomers } from "./customerSlice";
 import { CustomerHeadCell } from "pages/model";
+import CTable from "components/CTable";
+import CustomerSearch from "./CustomerSearch";
 
 const customerHeadCells: CustomerHeadCell[] = [
   { id: "id", label: "Id" },
@@ -41,57 +31,23 @@ export default function Customer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
-
   return (
-    <Box sx={{ width: "100%" }}>
-      <TextField
-        label="Search Customer"
-        id="search customer"
-        sx={{ width: "30%", marginBottom: 2 }}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <Box className="w-100">
-          <h1>Customer</h1>
+    <Box className="customer" sx={{ width: "100%" }}>
+      <CustomerSearch />
+
+      <Paper sx={{ width: "100%", mb: 2, borderRadius: 4 }}>
+        <Box className="customer-header w-100 d-flex justify-content-between align-items-center p-3">
+          <Typography component="h2">
+            Customer <span>Management</span>
+          </Typography>
         </Box>
-        <TableContainer>
-          <Table aria-labelledby="customer" size="medium">
-            <CTableHead headCells={customerHeadCells} />
-            <TableBody>
-              {data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                      {Object.values(row).map((cell, idx) => (
-                        <TableCell key={`cell-${idx}`} align="left">
-                          {cell}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: 53 * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Divider />
+        <CTable
+          data={data}
+          headCells={customerHeadCells}
+          page={page}
+          rowsPerPage={rowsPerPage}
+        />
         <CPagination
           maxLength={data.length}
           page={page}

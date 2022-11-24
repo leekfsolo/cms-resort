@@ -1,16 +1,15 @@
 import React from "react";
 import { TableHead, TableRow, TableCell } from "@mui/material";
-import { CustomerHeadCell } from "pages/model";
 
 interface EnhancedTableProps {
-  headCells: Array<CustomerHeadCell>;
+  headCells: Array<any>;
 }
 
 const CTableHead = (props: EnhancedTableProps) => {
   const { headCells } = props;
 
   return (
-    <TableHead>
+    <TableHead className="ctable-head">
       <TableRow>
         {headCells.map((headCell) => (
           <TableCell key={headCell.id} align="left" padding="normal">

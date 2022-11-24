@@ -17,11 +17,21 @@
     padding: 8px 14px 8px 28px;
   }
 
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-    color: $info-700;
+  .MuiBreadcrumbs-separator {
+    font-size: 20px;
+    font-family: "epilogue", sans-serif;
+    color: $neutral-500;
+  }
+
+  h4 {
+    font-size: 20px;
+    font-weight: 500;
+    color: $neutral-500;
     text-transform: capitalize;
+
+    &.header-active {
+      color: $neutral-900;
+    }
   }
 
   &-collapse {
