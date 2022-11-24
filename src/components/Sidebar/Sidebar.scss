@@ -64,11 +64,11 @@
       }
 
       &:hover {
-        background-color: $primary-150;
+        background-color: $info-150;
       }
 
       &.active {
-        background-color: $primary-500;
+        background-color: $info-700;
 
         svg {
           fill: $white;

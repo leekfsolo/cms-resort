@@ -20,7 +20,7 @@
   h1 {
     font-size: 24px;
     font-weight: 700;
-    color: $primary-500;
+    color: $info-700;
     text-transform: capitalize;
   }
 
@@ -28,7 +28,7 @@
     cursor: pointer;
 
     .hamburger-react {
-      color: $primary-500;
+      color: $info-700;
     }
   }
 }
