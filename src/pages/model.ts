@@ -1,14 +1,15 @@
-export interface StaffData {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
+export interface CustomerData {
+  id: string;
+  CCCD: string;
+  fullname: string;
+  phone: string;
+  mail: string;
+  username: string;
+  score: number;
+  type: number;
 }
 
-export interface StaffHeadCell {
-  disablePadding: boolean;
-  id: keyof StaffData;
+export interface CustomerHeadCell {
+  id: keyof CustomerData;
   label: string;
-  numeric: boolean;
 }
