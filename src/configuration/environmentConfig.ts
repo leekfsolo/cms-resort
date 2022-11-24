@@ -1,6 +1,6 @@
 const enviromentConfig = {
   development: {
-    endPoint: "https://networkserverasm1.herokuapp.com",
+    endPoint: "https://localhost:7143",
   },
   production: {
     endPoint: "",

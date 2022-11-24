@@ -1,11 +1,11 @@
 import React from "react";
 import { PageUrl } from "configuration/enum";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { getUserId } from "utils/getUserId";
+import { getUsername } from "utils/getUsername";
 
 const PrivateRoute = () => {
   const location = useLocation();
-  const isAuth = getUserId() !== "";
+  const isAuth = getUsername() !== "";
 
   return isAuth ? (
     <Outlet />

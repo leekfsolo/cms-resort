@@ -1,12 +1,12 @@
 import Config from "configuration";
 
-export const getUserId = () => {
-  let userId = "";
+export const getUsername = () => {
+  let username = "";
   const auth = sessionStorage.getItem(Config.storageKey.auth);
 
   if (auth) {
-    userId = JSON.parse(auth).userId;
+    username = JSON.parse(auth).username;
   }
 
-  return userId;
+  return username;
 };

@@ -3,8 +3,8 @@ import axiosClient from "./axiosClient";
 
 const authApi = {
   login: (data: IFormLogin) => {
-    const url = "login";
-    return axiosClient.post(url, data, { params: data });
+    const url = "/api/auth";
+    return axiosClient.post(url, data);
   },
 };
 

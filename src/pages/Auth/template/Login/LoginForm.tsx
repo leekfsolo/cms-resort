@@ -23,7 +23,7 @@ const LoginForm = () => {
       if (data.username && data.password) {
         const dataResponse: any = await dispatch(login(data)).unwrap();
 
-        if (dataResponse.status) {
+        if (dataResponse.success) {
           navigate(`../${PageUrl.HOME}`);
         }
       }

@@ -8,7 +8,7 @@ const initialAuth = () => {
   if (auth) {
     return { ...JSON.parse(auth) };
   }
-  return { id: "", name: "" };
+  return { auth: { username: "" } };
 };
 
 export const login = createAsyncThunk(
@@ -25,7 +25,7 @@ const auth = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
-      state = action.payload;
+      state.auth = action.payload;
       sessionStorage.setItem(Config.storageKey.auth, JSON.stringify(state));
       return state;
     });
