@@ -19,10 +19,14 @@ export interface BookingData {
   bookingId: string;
   bookingDatetime: string;
   checkinDate: string;
-  numberOfGuests: number;
   checkoutDate: string;
+  numberOfGuests: number;
   status: number;
   totalPrice: number;
   customerId: string;
   packageName: string;
+}
+export interface BookingHeadCell {
+  id: keyof BookingData;
+  label: string;
 }

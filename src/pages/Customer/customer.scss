@@ -24,6 +24,13 @@
       align-items: center;
       padding: 30px 0;
 
+      img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
       p {
         font-weight: 700;
         font-size: 24px;

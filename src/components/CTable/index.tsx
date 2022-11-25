@@ -49,11 +49,13 @@ const CTable = (props: Props) => {
                   key={row.customerId}
                   sx={{ cursor: "pointer" }}
                 >
-                  {Object.values(row).map((cell: any, idx) => (
-                    <TableCell key={`cell-${idx}`} align="left">
-                      {cell}
-                    </TableCell>
-                  ))}
+                  {Object.keys(row).map((cell: any, idx) => {
+                    return (
+                      <TableCell key={`cell-${cell}-${idx}`} align="left">
+                        {row[cell]}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               );
             })}
