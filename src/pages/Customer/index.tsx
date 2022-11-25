@@ -8,6 +8,7 @@ import { getCustomers } from "./customerSlice";
 import { CustomerHeadCell } from "pages/model";
 import CTable from "components/CTable";
 import CustomerSearch from "./CustomerSearch";
+import { handleLoading } from "app/globalSlice";
 
 const customerHeadCells: CustomerHeadCell[] = [
   { id: "id", label: "Id" },
@@ -27,7 +28,18 @@ export default function Customer() {
   const { data } = useAppSelector(customerSelector);
 
   useEffect(() => {
-    dispatch(getCustomers());
+    dispatch(handleLoading(true));
+    try {
+      const fetchData = async () => {
+        await dispatch(getCustomers());
+      };
+
+      fetchData();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      dispatch(handleLoading(false));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,9 +49,7 @@ export default function Customer() {
 
       <Paper sx={{ width: "100%", mb: 2, borderRadius: 4 }}>
         <Box className="customer-header w-100 d-flex justify-content-between align-items-center p-3">
-          <Typography component="h2">
-            Customer <span>Management</span>
-          </Typography>
+          <Typography component="h2">Customer Management</Typography>
         </Box>
         <Divider />
         <CTable

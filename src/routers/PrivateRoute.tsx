@@ -7,7 +7,7 @@ const PrivateRoute = () => {
   const location = useLocation();
   const isAuth = getUsername() !== "";
 
-  return true ? (
+  return isAuth ? (
     <Outlet />
   ) : (
     <Navigate to={PageUrl.LOGIN} state={{ from: location }} replace />

@@ -7,6 +7,7 @@ import {
   TableRow,
   TableContainer,
 } from "@mui/material";
+import NoDataFound from "components/NoDataFound";
 
 interface Props {
   page: number;
@@ -29,30 +30,34 @@ const CTable = (props: Props) => {
         sx={{ borderCollapse: "collapse" }}
       >
         <CTableHead headCells={headCells} />
-        <TableBody>
-          {data
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            .map((row) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {Object.values(row).map((cell: any, idx) => (
-                    <TableCell key={`cell-${idx}`} align="left">
-                      {cell}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              );
-            })}
-          {emptyRows > 0 && (
-            <TableRow
-              style={{
-                height: 53 * emptyRows,
-              }}
-            >
-              <TableCell colSpan={6} />
-            </TableRow>
-          )}
-        </TableBody>
+        {data.length > 0 ? (
+          <TableBody>
+            {data
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return (
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
+                    {Object.values(row).map((cell: any, idx) => (
+                      <TableCell key={`cell-${idx}`} align="left">
+                        {cell}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow
+                style={{
+                  height: 53 * emptyRows,
+                }}
+              >
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        ) : (
+          <NoDataFound />
+        )}
       </Table>
     </TableContainer>
   );
