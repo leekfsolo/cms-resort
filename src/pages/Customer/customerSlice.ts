@@ -11,8 +11,16 @@ export const getCustomers = createAsyncThunk("customer/list", async () => {
   return res;
 });
 
+export const getCustomerById = createAsyncThunk(
+  "customer/list/{id}",
+  async (name: string) => {
+    const res = await customerApi.getCustomersByName(name);
+    return res;
+  }
+);
+
 export const getCustomersByName = createAsyncThunk(
-  "customer/list/{name}",
+  "customer/list/filteredByName",
   async (name: string) => {
     const res = await customerApi.getCustomersByName(name);
     return res;
@@ -26,13 +34,23 @@ const customer = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCustomers.fulfilled, (state, action) => {
-        state.data = action.payload.data;
+        const { data } = action.payload;
+        const transformedData = data.map((row: any) => {
+          delete row.bookingReservations;
+          return row;
+        });
+        state.data = transformedData;
       })
       .addCase(getCustomers.rejected, (state, action) => {
         console.log(action.payload);
       })
       .addCase(getCustomersByName.fulfilled, (state, action) => {
-        state.data = action.payload.data;
+        const { data } = action.payload;
+        const transformedData = data.map((row: any) => {
+          delete row.bookingReservations;
+          return row;
+        });
+        state.data = transformedData;
       })
       .addCase(getCustomersByName.rejected, (state, action) => {
         console.log(action.payload);

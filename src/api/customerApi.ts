@@ -7,8 +7,8 @@ const customerApi = {
   },
 
   getCustomersByName: (name: string) => {
-    const url = `/api/customer/${name}`;
-    return axiosClient.get(url);
+    const url = `/api/customer/getFilterCustomers`;
+    return axiosClient.get(url, { params: { fullname: name } });
   },
 };
 
