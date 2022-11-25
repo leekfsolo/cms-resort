@@ -9,6 +9,7 @@ import { CustomerHeadCell } from "pages/model";
 import CTable from "components/CTable";
 import CustomerSearch from "./CustomerSearch";
 import { handleLoading } from "app/globalSlice";
+import { useNavigate } from "react-router-dom";
 
 const customerHeadCells: CustomerHeadCell[] = [
   { id: "id", label: "Id" },
@@ -23,9 +24,14 @@ const customerHeadCells: CustomerHeadCell[] = [
 
 export default function Customer() {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const { data } = useAppSelector(customerSelector);
+
+  const viewData = (id: string) => {
+    navigate(id);
+  };
 
   useEffect(() => {
     dispatch(handleLoading(true));
@@ -57,6 +63,7 @@ export default function Customer() {
           headCells={customerHeadCells}
           page={page}
           rowsPerPage={rowsPerPage}
+          viewData={viewData}
         />
         <CPagination
           maxLength={data.length}

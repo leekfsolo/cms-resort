@@ -6,6 +6,11 @@ const customerApi = {
     return axiosClient.get(url);
   },
 
+  getCustomerById: (id: string) => {
+    const url = `/api/customer/${id}`;
+    return axiosClient.get(url);
+  },
+
   getCustomersByName: (name: string) => {
     const url = `/api/customer/getFilterCustomers`;
     return axiosClient.get(url, { params: { fullname: name } });

@@ -12,6 +12,7 @@ import MainLayout from "components/MainLayout";
 import Customer from "pages/Customer";
 import Room from "pages/Room";
 import ModalBackdrop from "components/ModalBackdrop";
+import CustomerDetail from "pages/Customer/CustomerDetail";
 
 const Routers = () => {
   return (
@@ -25,8 +26,12 @@ const Routers = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path={PageUrl.ROOT} element={<MainLayout />}>
-            <Route index path={PageUrl.HOME} element={<Home />} />
+            <Route path={PageUrl.HOME} element={<Home />} />
             <Route path={PageUrl.CUSTOMER} element={<Customer />} />
+            <Route
+              path={`${PageUrl.CUSTOMER}/:customerId`}
+              element={<CustomerDetail />}
+            />
             <Route path={PageUrl.ROOM} element={<Room />} />
           </Route>
         </Route>

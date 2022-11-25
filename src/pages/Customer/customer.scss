@@ -15,4 +15,39 @@
       color: $neutral-800;
     }
   }
+
+  &-detail {
+    &__card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 30px 0;
+
+      p {
+        font-weight: 700;
+        font-size: 24px;
+        color: $info-700;
+      }
+
+      small {
+        font-size: 12px;
+        color: $neutral-500;
+      }
+    }
+
+    &__info {
+      .info-row {
+        display: flex;
+        align-items: center;
+
+        &__label {
+          min-width: 200px;
+          text-transform: capitalize;
+          color: $neutral-900;
+          font-weight: 700;
+        }
+      }
+    }
+  }
 }

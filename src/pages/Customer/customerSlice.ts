@@ -1,9 +1,20 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import customerApi from "api/customerApi";
 import { CustomerData } from "pages/model";
 
-const initCustomer: { data: CustomerData[] } = {
+const initCustomer: { data: CustomerData[]; customerDetail: CustomerData } = {
   data: [],
+  customerDetail: {
+    bookingReservations: [],
+    CCCD: "",
+    fullname: "",
+    id: "",
+    mail: "",
+    phone: "",
+    score: -1,
+    type: -1,
+    username: "",
+  },
 };
 
 export const getCustomers = createAsyncThunk("customer/list", async () => {
@@ -13,8 +24,8 @@ export const getCustomers = createAsyncThunk("customer/list", async () => {
 
 export const getCustomerById = createAsyncThunk(
   "customer/list/{id}",
-  async (name: string) => {
-    const res = await customerApi.getCustomersByName(name);
+  async (id: string) => {
+    const res = await customerApi.getCustomerById(id);
     return res;
   }
 );
@@ -42,6 +53,38 @@ const customer = createSlice({
         state.data = transformedData;
       })
       .addCase(getCustomers.rejected, (state, action) => {
+        console.log(action.payload);
+      })
+      .addCase(
+        getCustomerById.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          const { data } = action.payload;
+          const {
+            customerCccdCmnd,
+            bookingReservations,
+            customerId,
+            customerEmail,
+            customerTelephone,
+            customerUsername,
+            customerScore,
+            customerType,
+            customerFullname,
+          } = data;
+
+          state.customerDetail = {
+            CCCD: customerCccdCmnd,
+            bookingReservations: bookingReservations,
+            fullname: customerFullname,
+            id: customerId,
+            mail: customerEmail,
+            phone: customerTelephone,
+            score: customerScore,
+            type: customerType,
+            username: customerUsername,
+          };
+        }
+      )
+      .addCase(getCustomerById.rejected, (state, action) => {
         console.log(action.payload);
       })
       .addCase(getCustomersByName.fulfilled, (state, action) => {

@@ -42,11 +42,11 @@ const CTable = (props: Props) => {
             .map((row) => {
               return (
                 <TableRow
-                  onClick={() => handleClickOnRow(row.id)}
+                  onClick={() => handleClickOnRow(row.customerId)}
                   hover
                   role="checkbox"
                   tabIndex={-1}
-                  key={row.id}
+                  key={row.customerId}
                   sx={{ cursor: "pointer" }}
                 >
                   {Object.values(row).map((cell: any, idx) => (
