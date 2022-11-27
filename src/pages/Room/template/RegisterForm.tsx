@@ -27,7 +27,12 @@ const RegisterForm = (props: Props) => {
     reset,
     formState: { errors },
   } = useForm<IRoomType>({ defaultValues: initRoomtype });
-  const resetValues = () => reset(initRoomtype);
+  const resetValues = () => {
+    const form = document.getElementById("addRoomType-form");
+
+    form?.classList.remove("wasvalidated");
+    reset(initRoomtype);
+  };
 
   const onValidSubmit: SubmitHandler<IRoomType> = async (data) => {
     // Just for test
@@ -64,6 +69,7 @@ const RegisterForm = (props: Props) => {
       method="POST"
       action="#"
       noValidate
+      id="addRoomType-form"
     >
       <FormGroup className="register-section__inputs">
         {registerSections.map((row) => {

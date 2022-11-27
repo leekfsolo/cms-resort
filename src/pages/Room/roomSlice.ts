@@ -7,8 +7,6 @@ export const initRoomtype: IRoomType = {
   area: 0,
   maxGuests: 0,
   otherDescription: "",
-  bedQuantity: 1,
-  bedSize: 1.0,
 };
 
 export const addRoomType = createAsyncThunk(
