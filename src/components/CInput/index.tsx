@@ -1,58 +1,57 @@
-import { Box, InputAdornment, TextField } from "@mui/material";
-import React, { HTMLInputTypeAttribute } from "react";
+import {
+  Box,
+  InputAdornment,
+  TextField,
+  BaseTextFieldProps,
+} from "@mui/material";
+import React from "react";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { TextFieldProps } from "@mui/material/TextField";
 
-type Props = {
-  field: any;
-  startIcon?: React.ReactElement;
-  endIcon?: React.ReactElement;
-  label: string;
-  placeholder: string;
-  type?: HTMLInputTypeAttribute;
-};
+interface Props extends BaseTextFieldProps {
+  endicon?: React.ReactElement;
+  starticon?: React.ReactElement;
+  valid?: boolean;
+}
 
-const CInput = (props: Props) => {
+const CInput = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
   const {
-    field,
-    label,
-    placeholder,
-    startIcon = null,
-    endIcon = null,
-    type = "text",
+    starticon = null,
+    endicon = null,
+    type,
+    className,
+    valid = true,
   } = props;
-
   const [isShowPassword, setIsShowPassword] = React.useState<boolean>(false);
 
-  const textFieldProps: TextFieldProps = {
-    label,
-    placeholder,
-    ...field,
-    value: field.value || "",
-    InputProps: {
-      startAdornment: startIcon && (
-        <InputAdornment position="start">{startIcon}</InputAdornment>
-      ),
-      endAdornment: endIcon && (
-        <InputAdornment position="end">
-          {type === "text" ? (
-            <>{endIcon}</>
-          ) : (
-            <Box
-              sx={{ cursor: "pointer" }}
-              onClick={() => setIsShowPassword(!isShowPassword)}
-            >
-              {isShowPassword ? endIcon : <VisibilityOffIcon />}
-            </Box>
-          )}
-        </InputAdornment>
-      ),
-    },
-    type: type === "text" ? type : isShowPassword ? "text" : "password",
-    className: "mb-4",
-  };
-
-  return <TextField {...textFieldProps} />;
-};
+  return (
+    <TextField
+      {...Object.assign({}, props, { valid: undefined })}
+      className={`cinput ${className} cinput-${valid ? "valid" : "invalid"}`}
+      InputProps={{
+        startAdornment: starticon && (
+          <InputAdornment position="start">{starticon}</InputAdornment>
+        ),
+        endAdornment: endicon && (
+          <InputAdornment position="end">
+            {type === "text" ? (
+              <>{endicon}</>
+            ) : (
+              <Box
+                sx={{ cursor: "pointer" }}
+                onClick={() => setIsShowPassword(!isShowPassword)}
+              >
+                {isShowPassword ? endicon : <VisibilityOffIcon />}
+              </Box>
+            )}
+          </InputAdornment>
+        ),
+      }}
+      ref={ref}
+      variant="outlined"
+      type={isShowPassword ? "text" : type}
+      fullWidth
+    />
+  );
+});
 
 export default CInput;

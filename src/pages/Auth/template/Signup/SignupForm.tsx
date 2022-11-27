@@ -24,9 +24,10 @@ const SignupForm = () => {
           control={control}
           render={({ field }) => (
             <CInput
-              field={field}
+              {...field}
               label="Username"
               placeholder="example@gmail.com"
+              className="mb-4"
             />
           )}
         />
@@ -36,9 +37,10 @@ const SignupForm = () => {
           name="password"
           render={({ field }) => (
             <CInput
-              field={field}
+              {...field}
               label="Password"
               placeholder="Enter your password"
+              className="mb-4"
             />
           )}
         />
@@ -48,9 +50,10 @@ const SignupForm = () => {
           name="confirmPassword"
           render={({ field }) => (
             <CInput
-              field={field}
+              {...field}
               label="Confirm Password"
               placeholder="Re-Enter your password"
+              className="mb-4"
             />
           )}
         />

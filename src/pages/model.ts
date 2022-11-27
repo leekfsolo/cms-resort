@@ -1,3 +1,29 @@
+import { HTMLInputTypeAttribute } from "react";
+
+export interface IRegisterInput {
+  label: string;
+  required: boolean;
+  type: HTMLInputTypeAttribute;
+  placeholder: string;
+  id: string;
+  options?: string[];
+  name: keyof IFormRegister;
+}
+
+export interface IRegisterSection {
+  title: string;
+  items: IRegisterInput[];
+}
+
+export interface IFormRegister {
+  username: string;
+  fullname: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  accountRole: string;
+}
+
 export interface CustomerData {
   id: string;
   CCCD: string;

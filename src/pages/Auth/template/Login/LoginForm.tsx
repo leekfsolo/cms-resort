@@ -49,10 +49,11 @@ const LoginForm = () => {
           control={control}
           render={({ field }) => (
             <CInput
-              field={field}
+              {...field}
               label="Username"
               placeholder="example@gmail.com"
-              startIcon={<PersonIcon />}
+              starticon={<PersonIcon />}
+              className="mb-4"
             />
           )}
         />
@@ -64,10 +65,11 @@ const LoginForm = () => {
             <CInput
               type="password"
               label="Password"
-              field={field}
+              {...field}
               placeholder="Enter your password"
-              startIcon={<LockIcon />}
-              endIcon={<VisibilityIcon />}
+              starticon={<LockIcon />}
+              endicon={<VisibilityIcon />}
+              className="mb-4"
             />
           )}
         />
