@@ -35,7 +35,7 @@ const Room = () => {
           id: "bedSize",
           name: "bedinforSize",
           type: "number",
-          placeholder: "Bed size (m2)",
+          placeholder: "Bed size (1.2 = 1m2)",
         },
         {
           label: "Bed quantity",

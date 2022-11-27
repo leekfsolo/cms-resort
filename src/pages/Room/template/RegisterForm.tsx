@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, FormHelperText } from "@mui/material";
+import { Box, FormHelperText, Typography } from "@mui/material";
 import { IRoomType, IAddRoomTypeInput } from "pages/model";
 import {
   Controller,
@@ -64,6 +64,12 @@ const RegisterForm = (props: Props) => {
         max: { value: 10, message: "Please enter a number between 1 and 10" },
       });
     }
+    if (item.name === "bedinforSize") {
+      Object.assign(validator, {
+        validate: (value: number) =>
+          (value >= 1.0 && value < 10.0) || "Please enter the correct format",
+      });
+    }
 
     return validator;
   };
@@ -98,8 +104,18 @@ const RegisterForm = (props: Props) => {
                       <Box
                         key={item.id}
                         sx={{ position: "relative" }}
-                        className="col-5 p-0"
+                        className="col-5 p-0 mt-2"
                       >
+                        <Typography
+                          sx={{
+                            position: "absolute",
+                            top: "-18px",
+                            left: 0,
+                            fontSize: "12px",
+                          }}
+                        >
+                          {item.placeholder}
+                        </Typography>
                         <Controller
                           control={control}
                           name={item.name}
