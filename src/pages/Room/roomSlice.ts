@@ -3,10 +3,12 @@ import roomTypeApi from "api/roomTypeApi";
 import { IRoomType } from "pages/model";
 
 export const initRoomtype: IRoomType = {
-  roomTypeName: "",
-  area: 0,
-  maxGuests: 0,
-  otherDescription: "",
+  roomtypeName: "",
+  roomtypeArea: 0,
+  roomtypeNoGuests: 0,
+  roomtypeDescription: "",
+  bedinforNoBeds: 1,
+  bedinforSize: 1,
 };
 
 export const addRoomType = createAsyncThunk(

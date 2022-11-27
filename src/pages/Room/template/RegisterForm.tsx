@@ -59,6 +59,11 @@ const RegisterForm = (props: Props) => {
         min: { value: 1, message: "Please enter a positive number" },
       });
     }
+    if (item.name === "bedinforNoBeds" || item.name === "roomtypeNoGuests") {
+      Object.assign(validator, {
+        max: { value: 10, message: "Please enter a number between 1 and 10" },
+      });
+    }
 
     return validator;
   };
@@ -79,7 +84,7 @@ const RegisterForm = (props: Props) => {
                 <label htmlFor={row.id}>
                   {row.label}
                   <span className="required">* </span>
-                  {row.name === "area" && (
+                  {row.name === "roomtypeArea" && (
                     <small>
                       (m<sup style={{ fontSize: "12px" }}>2</sup>)
                     </small>
@@ -106,7 +111,6 @@ const RegisterForm = (props: Props) => {
                               placeholder={item.placeholder}
                               type={item.type}
                               valid={!errors[item.name]}
-                              multiline={item.name === "otherDescription"}
                             />
                           )}
                         />
@@ -131,7 +135,7 @@ const RegisterForm = (props: Props) => {
                           placeholder={row.placeholder}
                           type={row.type}
                           valid={!errors[row.name]}
-                          multiline={row.name === "otherDescription"}
+                          multiline={row.name === "roomtypeDescription"}
                         />
                       )}
                     />
@@ -149,9 +153,6 @@ const RegisterForm = (props: Props) => {
       </FormGroup>
 
       <div className="register-button">
-        <CButton type="submit" variant="outlined">
-          Create
-        </CButton>
         <CButton
           type="reset"
           variant="outlined"
@@ -159,6 +160,9 @@ const RegisterForm = (props: Props) => {
           onClick={resetValues}
         >
           Reset
+        </CButton>
+        <CButton type="submit" variant="outlined">
+          Create
         </CButton>
       </div>
     </form>

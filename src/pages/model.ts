@@ -10,13 +10,12 @@ export interface IAddRoomTypeInput {
 }
 
 export interface IRoomType {
-  roomTypeName: string;
-  area: number;
-  maxGuests: number;
-  otherDescription: string;
-  bedInfo?: string;
-  bedSize?: number;
-  bedQuantity?: number;
+  roomtypeName: string;
+  roomtypeArea: number;
+  roomtypeDescription: string;
+  roomtypeNoGuests: number;
+  bedinforSize: number;
+  bedinforNoBeds: number;
 }
 
 export interface IBedInfo {
