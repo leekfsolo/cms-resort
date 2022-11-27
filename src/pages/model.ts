@@ -1,27 +1,27 @@
 import { HTMLInputTypeAttribute } from "react";
 
-export interface IRegisterInput {
+export interface IAddRoomTypeInput {
   label: string;
-  required: boolean;
-  type: HTMLInputTypeAttribute;
-  placeholder: string;
+  type?: HTMLInputTypeAttribute;
+  placeholder?: string;
   id: string;
-  options?: string[];
-  name: keyof IFormRegister;
+  name: keyof IRoomType;
+  items?: IAddRoomTypeInput[];
 }
 
-export interface IRegisterSection {
-  title: string;
-  items: IRegisterInput[];
+export interface IRoomType {
+  roomTypeName: string;
+  area: number;
+  maxGuests: number;
+  otherDescription: string;
+  bedInfo?: string;
+  bedSize?: number;
+  bedQuantity?: number;
 }
 
-export interface IFormRegister {
-  username: string;
-  fullname: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
-  accountRole: string;
+export interface IBedInfo {
+  bedSize: number;
+  bedQuantity: number;
 }
 
 export interface CustomerData {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, FormHelperText } from "@mui/material";
-import { IFormRegister, IRegisterInput, IRegisterSection } from "pages/model";
+import { IRoomType, IAddRoomTypeInput } from "pages/model";
 import {
   Controller,
   SubmitErrorHandler,
@@ -8,61 +8,50 @@ import {
   useForm,
 } from "react-hook-form";
 import { FormGroup } from "@mui/material";
-import CSelect from "components/CSelect";
 import CInput from "components/CInput";
 import CButton from "components/CButton";
+import { addRoomType, initRoomtype } from "../roomSlice";
+import { useAppDispatch } from "app/hooks";
+import { handleLoading } from "app/globalSlice";
 
 type Props = {
-  registerSections: IRegisterSection[];
-};
-
-const defaultValues: IFormRegister = {
-  accountRole: "default",
-  confirmPassword: "",
-  password: "",
-  username: "",
-  fullname: "",
-  phone: "",
+  registerSections: IAddRoomTypeInput[];
 };
 
 const RegisterForm = (props: Props) => {
   const { registerSections } = props;
+  const dispatch = useAppDispatch();
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors },
-    getValues,
-  } = useForm<IFormRegister>({ defaultValues });
+  } = useForm<IRoomType>({ defaultValues: initRoomtype });
+  const resetValues = () => reset(initRoomtype);
 
-  const onValidSubmit: SubmitHandler<IFormRegister> = (data) => {
+  const onValidSubmit: SubmitHandler<IRoomType> = async (data) => {
     // Just for test
-    console.log(data);
-    reset(defaultValues);
+    dispatch(handleLoading(true));
+    try {
+      await dispatch(addRoomType(data));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      dispatch(handleLoading(false));
+      resetValues();
+    }
   };
-  const onInvalidSubmit: SubmitErrorHandler<IFormRegister> = (data, event) => {
+  const onInvalidSubmit: SubmitErrorHandler<IRoomType> = (data, event) => {
     event?.target.classList.add("wasvalidated");
   };
 
-  const rulesValidation = (item: IRegisterInput) => {
+  const rulesValidation = (item: IAddRoomTypeInput) => {
     let validator = {
-      required: { value: item.required, message: "This field is required" },
+      required: { value: true, message: "This field is required" },
     };
-    if (item.name === "phone") {
+    if (item.type === "number") {
       Object.assign(validator, {
-        pattern: { value: /\d{10}/, message: "Invalid phone number" },
-      });
-    }
-    if (item.name === "accountRole") {
-      Object.assign(validator, {
-        validate: (value: string) =>
-          value !== "default" || "This field is required",
-      });
-    }
-    if (item.name === "confirmPassword") {
-      Object.assign(validator, {
-        validate: (value: string) =>
-          value === getValues("password") || "Password does not match",
+        min: { value: 1, message: "Please enter a positive number" },
       });
     }
 
@@ -76,67 +65,94 @@ const RegisterForm = (props: Props) => {
       action="#"
       noValidate
     >
-      {registerSections.map((section) => (
-        <div className="register-section" key={section.title}>
-          <div className="register-section__title">
-            <h4>{section.title}</h4>
-          </div>
-
-          <FormGroup className="register-section__inputs">
-            {section.items.map((item) => {
-              return (
-                <div key={item.id} className="input-row w-100">
-                  <div className="input-row__label">
-                    <label htmlFor={item.id}>
-                      {item.label}
-                      {item.required && <span className="required">*</span>}
-                    </label>
-                  </div>
-                  <div className="input-row__field">
-                    <Box sx={{ position: "relative" }}>
-                      <Controller
-                        control={control}
-                        name={item.name}
-                        rules={rulesValidation(item)}
-                        render={({ field }) => (
-                          <>
-                            {item.options ? (
-                              <CSelect
-                                {...field}
-                                id={item.id}
-                                placeholder={item.placeholder}
-                                options={item.options}
-                                valid={!errors[item.name]}
-                              />
-                            ) : (
-                              <CInput
-                                {...field}
-                                id={item.id}
-                                placeholder={item.placeholder}
-                                type={item.type}
-                                valid={!errors[item.name]}
-                              />
-                            )}
-                          </>
+      <FormGroup className="register-section__inputs">
+        {registerSections.map((row) => {
+          return (
+            <div key={row.id} className="input-row w-100">
+              <div className="input-row__label">
+                <label htmlFor={row.id}>
+                  {row.label}
+                  <span className="required">* </span>
+                  {row.name === "area" && (
+                    <small>
+                      (m<sup style={{ fontSize: "12px" }}>2</sup>)
+                    </small>
+                  )}
+                </label>
+              </div>
+              <div className="input-row__field">
+                {row.items ? (
+                  <div className="row m-0 justify-content-between">
+                    {row.items.map((item) => (
+                      <Box
+                        key={item.id}
+                        sx={{ position: "relative" }}
+                        className="col-5 p-0"
+                      >
+                        <Controller
+                          control={control}
+                          name={item.name}
+                          rules={rulesValidation(item)}
+                          render={({ field }) => (
+                            <CInput
+                              {...field}
+                              id={item.id}
+                              placeholder={item.placeholder}
+                              type={item.type}
+                              valid={!errors[item.name]}
+                              multiline={item.name === "otherDescription"}
+                            />
+                          )}
+                        />
+                        {errors[item.name] && (
+                          <FormHelperText className="form-helper-text">
+                            {errors[item.name]?.message}
+                          </FormHelperText>
                         )}
-                      />
-                      {errors[item.name] && (
-                        <FormHelperText className="form-helper-text">
-                          {errors[item.name]?.message}
-                        </FormHelperText>
-                      )}
-                    </Box>
+                      </Box>
+                    ))}
                   </div>
-                </div>
-              );
-            })}
-          </FormGroup>
-        </div>
-      ))}
+                ) : (
+                  <Box sx={{ position: "relative" }}>
+                    <Controller
+                      control={control}
+                      name={row.name}
+                      rules={rulesValidation(row)}
+                      render={({ field }) => (
+                        <CInput
+                          {...field}
+                          id={row.id}
+                          placeholder={row.placeholder}
+                          type={row.type}
+                          valid={!errors[row.name]}
+                          multiline={row.name === "otherDescription"}
+                        />
+                      )}
+                    />
+                    {errors[row.name] && (
+                      <FormHelperText className="form-helper-text">
+                        {errors[row.name]?.message}
+                      </FormHelperText>
+                    )}
+                  </Box>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </FormGroup>
 
       <div className="register-button">
         <CButton type="submit" variant="outlined">
           Create
+        </CButton>
+        <CButton
+          type="reset"
+          variant="outlined"
+          color="error"
+          onClick={resetValues}
+        >
+          Reset
         </CButton>
       </div>
     </form>

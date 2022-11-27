@@ -2,7 +2,7 @@
 
 .register {
   font-family: "Inter", sans-serif;
-  padding: 30px 100px 50px 28px;
+  padding: 0 100px 0 10px;
 
   @include desktop {
     padding-right: 28px;
@@ -28,7 +28,6 @@
         margin-bottom: 40px;
         padding-left: 22px;
         display: flex;
-        align-items: center;
 
         @include for-mobile-down {
           flex-direction: column;
@@ -44,6 +43,7 @@
         &__label {
           min-width: 220px;
           color: $neutral-900;
+          padding-top: 19px;
 
           .required {
             color: $danger-500;
@@ -65,6 +65,7 @@
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    gap: 5px;
 
     button {
       border: 1px solid $primary-500;

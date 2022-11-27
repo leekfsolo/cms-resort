@@ -50,6 +50,7 @@ const CInput = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
       variant="outlined"
       type={isShowPassword ? "text" : type}
       fullWidth
+      minRows={4}
     />
   );
 });

@@ -1,77 +1,65 @@
-import { IRegisterSection } from "pages/model";
+import { IAddRoomTypeInput } from "pages/model";
 import React from "react";
 import RegisterForm from "./template/RegisterForm";
 
 const Room = () => {
-  const registerSections: IRegisterSection[] = [
+  const registerSections: IAddRoomTypeInput[] = [
     {
-      title: "Profile Configuration",
+      label: "Name",
+      id: "username",
+      name: "roomTypeName",
+      placeholder: "Enter the room name",
+      type: "text",
+    },
+    {
+      label: "Area",
+      id: "area",
+      name: "area",
+      placeholder: "100",
+      type: "number",
+    },
+    {
+      label: "Max Guests Allowed",
+      id: "guests",
+      name: "maxGuests",
+      placeholder: "10",
+      type: "number",
+    },
+    {
+      label: "Bed Informations",
+      id: "bedInfo",
+      name: "bedInfo",
       items: [
         {
-          label: "Username",
-          id: "username",
-          name: "username",
-          required: true,
-          placeholder: "Enter your username",
-          type: "text",
+          label: "Bed size",
+          id: "bedSize",
+          name: "bedSize",
+          type: "number",
+          placeholder: "Bed size (m2)",
         },
         {
-          label: "Full name",
-          id: "fullname",
-          name: "fullname",
-          required: false,
-          placeholder: "Nguyen Van A",
-          type: "text",
-        },
-        {
-          label: "Phone number",
-          id: "phone",
-          name: "phone",
-          required: false,
-          placeholder: "0123456789",
-          type: "text",
+          label: "Bed quantity",
+          id: "bedQuantity",
+          name: "bedQuantity",
+          type: "number",
+          placeholder: "Bed quantity",
         },
       ],
     },
     {
-      title: "Password Configuration",
-      items: [
-        {
-          label: "Password",
-          id: "password",
-          name: "password",
-          required: true,
-          placeholder: "Enter your password",
-          type: "password",
-        },
-        {
-          label: "Confirmation",
-          id: "confirm-password",
-          name: "confirmPassword",
-          required: true,
-          placeholder: "Confirm password",
-          type: "password",
-        },
-      ],
-    },
-    {
-      title: "Access Settings",
-      items: [
-        {
-          label: "Account role",
-          id: "account-role",
-          name: "accountRole",
-          required: true,
-          placeholder: "role",
-          type: "text",
-          options: ["admin", "sub-admin"],
-        },
-      ],
+      label: "Other Description",
+      id: "description",
+      name: "otherDescription",
+      placeholder: "Give some aside description of the room type...",
+      type: "text",
     },
   ];
 
   return (
     <div className="register">
+      <div className="register-section__title">
+        <h4>Room Type Configuration</h4>
+      </div>
       <RegisterForm registerSections={registerSections} />
     </div>
   );
