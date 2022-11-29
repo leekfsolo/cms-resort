@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import customerApi from "api/customerApi";
-import { CustomerData } from "pages/model";
+import moment from "moment";
+import { BookingData, CustomerData } from "pages/model";
 
 const initCustomer: { data: CustomerData[]; customerDetail: CustomerData } = {
   data: [],
@@ -71,9 +72,19 @@ const customer = createSlice({
             customerFullname,
           } = data;
 
+          const transFormData = bookingReservations.map((item: BookingData) => {
+            item.bookingDatetime = moment(item.bookingDatetime).format(
+              "DD/MM/YYYY HH:mm"
+            );
+            item.checkinDate = moment(item.checkinDate).format("DD/MM/YYYY");
+            item.checkoutDate = moment(item.checkoutDate).format("DD/MM/YYYY");
+
+            return item;
+          });
+
           state.customerDetail = {
             CCCD: customerCccdCmnd,
-            bookingReservations: bookingReservations,
+            bookingReservations: transFormData,
             fullname: customerFullname,
             id: customerId,
             mail: customerEmail,
