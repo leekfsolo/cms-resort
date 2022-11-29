@@ -13,22 +13,13 @@ const global = createSlice({
   initialState: initGlobal(),
   reducers: {
     handleBackdrop: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isShowModalBackdrop: action.payload,
-      };
+      state.isShowModalBackdrop = action.payload;
     },
     handleSidebar: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isShowSidebar: action.payload,
-      };
+      state.isShowSidebar = action.payload;
     },
     handleLoading: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
+      state.isLoading = action.payload;
     },
   },
 });
