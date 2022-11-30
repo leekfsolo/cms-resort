@@ -2,6 +2,8 @@ import React from "react";
 import { ISidebarItem } from "components/interface";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
+import { PageUrl } from "configuration/enum";
+import Config from "configuration";
 
 type Props = {
   item: ISidebarItem;
@@ -19,6 +21,9 @@ const SidebarItem = ({
 
   const handleClick = () => {
     setActiveSidebarTitle(label);
+    if (src.includes(PageUrl.LOGIN)) {
+      sessionStorage.removeItem(Config.storageKey.auth);
+    }
     navigate(src);
   };
 
