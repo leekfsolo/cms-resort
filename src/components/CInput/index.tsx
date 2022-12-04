@@ -4,16 +4,16 @@ import {
   TextField,
   BaseTextFieldProps,
 } from "@mui/material";
-import React from "react";
+import React, { forwardRef, ReactElement, useState } from "react";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 interface Props extends BaseTextFieldProps {
-  endicon?: React.ReactElement;
-  starticon?: React.ReactElement;
+  endicon?: ReactElement;
+  starticon?: ReactElement;
   valid?: boolean;
 }
 
-const CInput = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
+const CInput = forwardRef<HTMLInputElement, Props>((props, ref) => {
   const {
     starticon = null,
     endicon = null,
@@ -21,7 +21,7 @@ const CInput = React.forwardRef<HTMLInputElement, Props>((props, ref) => {
     className,
     valid = true,
   } = props;
-  const [isShowPassword, setIsShowPassword] = React.useState<boolean>(false);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   return (
     <TextField

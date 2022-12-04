@@ -5,12 +5,16 @@ import React, { FormEvent, useEffect } from "react";
 import { getBranches } from "./homeSlice";
 import { handleLoading } from "app/globalSlice";
 import CSelect from "components/CSelect";
+import { formatString } from "utils/formatNumber";
 
 const years = ["2022", "2021", "2020"];
 
 const Home = () => {
   const dispatch = useAppDispatch();
   const { branches } = useAppSelector(homeSelector);
+  const transformBranches = branches.map(
+    (branch) => "CN" + formatString(branch)
+  );
 
   const filterData = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,7 +50,7 @@ const Home = () => {
               sx={{ width: "30%" }}
               size="small"
               placeholder="Branch"
-              options={branches}
+              options={transformBranches}
             />
             <CSelect
               className="customer-header__search"
